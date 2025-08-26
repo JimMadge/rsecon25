@@ -302,10 +302,15 @@
                             <div class="column" style="width: 50%">
                                 <h4>TRE operator 🧑‍⚖️</h4>
                                 <ul>
+                                    <li>FRIDGE deployment and maintenance</li>
                                     <li>User management</li>
-                                    <li>Data processing</li>
-                                    <li>Data ingress and merging</li>
-                                    <li>Release of results</li>
+                                    <li>Data management
+                                        <ul>
+                                            <li>Inputs and merging</li>
+                                            <li>Processing</li>
+                                            <li>Release of results</li>
+                                        </ul>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="column" style="width: 50%">
@@ -321,15 +326,21 @@
                                 </ul>
                             </div>
                         </div>
+                        <div class="fragment custom blur">
+                            <h4>TRE researcher 🧑‍💻</h4>
+                            <ul>
+                                <li>Conduct responsible research</li>
+                            </ul>
+                        </div>
                         <aside data-markdown class="notes">
                             - TRE operator runs the TRE as if it is their infrastructure
                                 - All governance
                                 - Controlling access
-                                - Work conducted
-                                - Flow of data in and out
+                                - Data management and processing
                             - HPC providers responsbility is
                                 - provide a secure space to build a TRE
                                 - **not** handle, process or transfer sensitive data
+                            - This leaves the researchers free to focus on their work
                             - **LINK**: How do we achieve this?
                         </aside>
                     </section>
@@ -343,7 +354,8 @@
                     </figure>
                     <aside data-markdown class="notes">
                         - TRE tenant, secured/configured by HPC provider, which FRIDGE is deployed in to
-                        - Connected to external TRE by VPN
+                        - TRE Operators deploy and manage FRIDGE using normal K8s API
+                        - Connected to external TRE secure tunnels
                         - Users in TRE submit jobs or request outputs
                         - Advantages
                             - Considered part of existing TRE, under it's governance
@@ -364,7 +376,7 @@
                         <img src="static/FRIDGE_arch_summary.svg" width="100%">
                     </figure>
                     <aside data-markdown class="notes">
-                        - Wireguard VPN
+                        - SSH tunnels route secure connections to FRIDGE API
                         - REST APIs for user interaction
                         - When a user submits a job
                             - Submit a workflow specification
@@ -389,7 +401,7 @@
                         <div class="column" style="width: 50%">
                             <h4>On the host 🏢</h4>
                             <ul>
-                                <li>Site-to-site VPN</li>
+                                <li>SSH tunnels</li>
                                 <li>TRE tenancy isolation</li>
                             </ul>
                         </div>
@@ -401,7 +413,9 @@
                             - Traffic within the cluster is heavily restricted by network policy, to only what is necessary
                             - K8s volumes are automatically encrypted when provisioned
                         - Securing the boundary
-                            - Site-to-site VPN means no endpoints are exposed publicly
+                            - SSH tunnels connect existing TRE networks to _specific_ FRIDGE endpoints
+                            - Authentication by shared keys or certs
+                            - K8s API is not exposed to researchers
                             - Hypervisor isolation of K8s host
                             - The physical host is not not compromised if the VM is
                         - All of this means,
@@ -421,7 +435,8 @@
                             <li class="fragment custom blur" data-fragment-index="1">Shared responsibility model ✅</li>
                             <li class="fragment custom blur" data-fragment-index="1">TRE tenancy ✅</li>
                             <li class="fragment custom blur" data-fragment-index="1">MVP implementation on Azure ✅</li>
-                            <li class="fragment custom blur" data-fragment-index="2">Job submission API 🚧</li>
+                            <li class="fragment custom blur" data-fragment-index="1">Job submission API ✅</li>
+                            <li class="fragment custom blur" data-fragment-index="2">Data API 🚧</li>
                         </ul>
                     </section>
                     <section>
@@ -430,7 +445,7 @@
                             <li class="fragment custom blur" data-fragment-index="1">On-demand K8s cluster ✅</li>
                             <li class="fragment custom blur" data-fragment-index="1">GPU passthrough ✅</li>
                             <li class="fragment custom blur" data-fragment-index="1">Fridge development deployment ✅</li>
-                            <li class="fragment custom blur" data-fragment-index="2">S2S VPN 🚧</li>
+                            <li class="fragment custom blur" data-fragment-index="2">TRE tenancy design 🚧</li>
                             <li class="fragment custom blur" data-fragment-index="2">PVC encryption 🚧</li>
                         </ul>
                     </section>
@@ -476,8 +491,7 @@
                         - Workflow using cadiac data as part of a digital twin project on Dawn
                             - Necessary to prove we can resolve governance!
                         - To truly make the most of HPC, we need to show we can scale to tens or hundreds of nodes/GPUs
-                            - There are challenges in keeping a tenancy secure across many nodes we need to explore
-                        - As it stands, a privileged user on the host _could_ compromise FRIDGE
+                            - There are challenges in keeping a tenancy secure across many nodes we need to explore - As it stands, a privileged user on the host _could_ compromise FRIDGE
                             - We need to trust the HPC provider
                             - Confidential computing technology could remove the need for that trust, even a motivated and privileged attacker couldn't read FRIDGE data in memory
                             - Also adds support for bring your own compute, when you can't or don't want to configure host for high security
