@@ -514,10 +514,36 @@
                         - Workflow using cadiac data as part of a digital twin project on Dawn
                             - Necessary to prove we can resolve governance!
                         - To truly make the most of HPC, we need to show we can scale to tens or hundreds of nodes/GPUs
-                            - There are challenges in keeping a tenancy secure across many nodes we need to explore - As it stands, a privileged user on the host _could_ compromise FRIDGE
+                        - There are challenges in keeping a tenancy secure across many nodes we need to explore - As it stands, a privileged user on the host _could_ compromise FRIDGE
                             - We need to trust the HPC provider
                             - Confidential computing technology could remove the need for that trust, even a motivated and privileged attacker couldn't read FRIDGE data in memory
                             - Also adds support for bring your own compute, when you can't or don't want to configure host for high security
+                    </aside>
+                </section>
+                <section>
+                    <h3>TRUSTEE</h3>
+                    <p>FRIDGE requires <b>trust</b></p>
+                    <p>Data is still <b>exposed</b> in memory</p>
+                    <p>What about <b>low trust</b> or <b>bring your own compute</b> environments?</p>
+                    <figure class="fragment custom blur">
+                        <img src="static/ccc_states_of_data.png" width="100%">
+                        <figcaption>States of data and encryption. The Linux Foundation Confidential Computing Consortium. Used under CC-BY-ND 4.0 <a href="https://doi.org/10.70828/IYNL6589">10.70828/IYNL6589</a></figcaption>
+                    </figure>
+                    <aside data-markdown class="notes">
+                        - One limitation of FRIDGE is requiring trust in the infrastructure provider
+                            - A privileged user _could_ access secrets in memory
+                            - This limits use to "high trust" relationships, puts responsibility on the infrastructure provider
+                            - TRUSTEE is going to explore how to extend this to lower-trust environments including BYOC
+                        - Confidential computing and TEEs
+                            - Missing part of securing data - data in use (in memory)
+                            - Complements existing encryption technology
+                        - TEEs are hardware attested, secure computing environments
+                            - Data is not readable even to other processes on the same CPU
+                            - Support it emerging in modern CPUs and accelerators
+                        - Exploring TEE use in K8s/cloud
+                        - Attempt to combine confidential computing with FRIDGE
+                            - TEE passthrough?
+                            - Confidential containers (_e.g._ kata)
                     </aside>
                 </section>
                 <section>
