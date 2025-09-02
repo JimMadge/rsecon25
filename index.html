@@ -428,32 +428,6 @@
                 </section>
                 <!-- Broader impact -->
                 <section>
-                    <h3>TRUSTEE</h3>
-                    <p>FRIDGE requires <b>trust</b></p>
-                    <p>Data is still <b>exposed</b> in memory</p>
-                    <p>What about <b>low trust</b> or <b>bring your own compute</b> environments?</p>
-                    <figure class="fragment custom blur">
-                        <img src="static/ccc_states_of_data.png" width="100%">
-                        <figcaption>States of data and encryption. The Linux Foundation Confidential Computing Consortium. Used under CC-BY-ND 4.0 <a href="https://doi.org/10.70828/IYNL6589">10.70828/IYNL6589</a></figcaption>
-                    </figure>
-                    <aside data-markdown class="notes">
-                        - One limitation of FRIDGE is requiring trust in the infrastructure provider
-                            - A privileged user _could_ access secrets in memory
-                            - This limits use to "high trust" relationships, puts responsibility on the infrastructure provider
-                            - TRUSTEE is going to explore how to extend this to lower-trust environments including BYOC
-                        - Confidential computing and TEEs
-                            - Missing part of securing data - data in use (in memory)
-                            - Complements existing encryption technology
-                        - TEEs are hardware attested, secure computing environments
-                            - Data is not readable even to other processes on the same CPU
-                            - Support it emerging in modern CPUs and accelerators
-                        - Exploring TEE use in K8s/cloud
-                        - Attempt to combine confidential computing with FRIDGE
-                            - TEE passthrough?
-                            - Confidential containers (_e.g._ kata)
-                    </aside>
-                </section>
-                <section>
                     <h3>Broader connections</h3>
                     <div class="columns">
                         <div class="column">
@@ -485,6 +459,32 @@
                               As BioBank moves away from sharing data with researchers to use on their own hardware
                             - FRIDGE as an enabler for research with sensitive data on STFCs JASMIN research cloud
                         - A number of projects wanting to run AI workloads with sensitive data sets are eager to keep track of our progress
+                    </aside>
+                </section>
+                <section>
+                    <h3>TRUSTEE</h3>
+                    <p>FRIDGE requires <b>trust</b></p>
+                    <p>Data is still <b>exposed</b> in memory</p>
+                    <p>What about <b>low trust</b> or <b>bring your own compute</b> environments?</p>
+                    <figure class="fragment custom blur">
+                        <img src="static/ccc_states_of_data.png" width="100%">
+                        <figcaption>States of data and encryption. The Linux Foundation Confidential Computing Consortium. Used under CC-BY-ND 4.0 <a href="https://doi.org/10.70828/IYNL6589">10.70828/IYNL6589</a></figcaption>
+                    </figure>
+                    <aside data-markdown class="notes">
+                        - One limitation of FRIDGE is requiring trust in the infrastructure provider
+                            - A privileged user _could_ access secrets in memory
+                            - This limits use to "high trust" relationships, puts responsibility on the infrastructure provider
+                            - TRUSTEE is going to explore how to extend this to lower-trust environments including BYOC
+                        - Confidential computing and TEEs
+                            - Missing part of securing data - data in use (in memory)
+                            - Complements existing encryption technology
+                        - TEEs are hardware attested, secure computing environments
+                            - Data is not readable even to other processes on the same CPU
+                            - Support it emerging in modern CPUs and accelerators
+                        - Exploring TEE use in K8s/cloud
+                        - Attempt to combine confidential computing with FRIDGE
+                            - TEE passthrough?
+                            - Confidential containers (_e.g._ kata)
                     </aside>
                 </section>
                 <!-- Acknowledgements -->
