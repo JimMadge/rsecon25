@@ -328,6 +328,30 @@
                             - They cannot access the host or modify the K8s spec
                             - If they do somehow manage to compromise the VM, physical host is still protected, tenants are still isolated
                             - If the host system is compromised, the data is encrypted with keys not available
+                        - **LINK**: I have spoken about the tenancy in a hand-wavey way. What does it actually look like?
+                    </aside>
+                </section>
+                <section>
+                    <h3>Prototype TRE Tenancy</h3>
+                    <figure>
+                        <img src="static/FRIDGE_tenancy.svg" width="100%">
+                    </figure>
+                    <aside data-markdown class="notes">
+                        - A typical K8s cluster won't prevent outbound traffic
+                        - Using CNI rules to configure this would be difficult, complex, fragile
+                        - Solution is put the K8s cluster in an isolated vnet
+                            - Deny (all?) outbound traffic
+                            - Proxies (VMs) for KubeAPI for operators, and FRIDGE API for researchers
+                                - Allowed inbound traffic from these proxies to the corresponding APIs *only*
+                                - On jump boxes SSH -L (*:)80:<fridgeapi.example.com/kubeapi.example.com>:80 proxy.fridge.cam.ac.uk
+                                - **Hence**:
+                                    - within the home TRE network any host can connect to TCP 80 on jump
+                                    - this is forwarded to the fridge api or kube api
+                                    - via (_i.e._ seen as coming from) proxy
+                        - **This is for Dawn, however, building from common cloud components (VMs, firewalls) means we could replicate this elsewhere**
+                        - **Challenges**:
+                            - Logging, how to ensure we know which individual launched a job/send a command
+                            - How to use container registry? Access only through a TRE would be limiting
                         - **LINK**: Where have we gotten to?
                     </aside>
                 </section>
@@ -355,29 +379,6 @@
                             <li class="fragment custom blur" data-fragment-index="2">Volume provisioning 🚧</li>
                         </ul>
                     </section>
-                </section>
-                <section>
-                    <h3>Prototype TRE Tenancy</h3>
-                    <figure>
-                        <img src="static/FRIDGE_tenancy.svg" width="100%">
-                    </figure>
-                    <aside data-markdown class="notes">
-                        - A typical K8s cluster won't prevent outbound traffic
-                        - Using CNI rules to configure this would be difficult, complex, fragile
-                        - Solution is put the K8s cluster in an isolated vnet
-                            - Deny (all?) outbound traffic
-                            - Proxies (VMs) for KubeAPI for operators, and FRIDGE API for researchers
-                                - Allowed inbound traffic from these proxies to the corresponding APIs *only*
-                                - On jump boxes SSH -L (*:)80:<fridgeapi.example.com/kubeapi.example.com>:80 proxy.fridge.cam.ac.uk
-                                - **Hence**:
-                                    - within the home TRE network any host can connect to TCP 80 on jump
-                                    - this is forwarded to the fridge api or kube api
-                                    - via (_i.e._ seen as coming from) proxy
-                        - **This is for Dawn, however, building from common cloud components (VMs, firewalls) means we could replicate this elsewhere**
-                        - **Challenges**:
-                            - Logging, how to ensure we know which individual launched a job/send a command
-                            - How to use container registry? Access only through a TRE would be limiting
-                    </aside>
                 </section>
                 <!-- Conclusions, take home messages -->
                 <section>
